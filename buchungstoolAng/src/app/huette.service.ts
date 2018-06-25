@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Huette } from './hero';
+import { Huette } from './huette';
 import { HUETTEN } from './mock-huetten';
 import { Observable, of } from 'rxjs';
 
@@ -17,7 +17,7 @@ export class HuetteService {
   }
 
   getHuette(id: number): Observable<Huette> {
-  	return of(HUETTEN.find(hero => hero.id === id));
+  	return of(HUETTEN.find(huette => huette.id === id));
   }
 }
 
