@@ -14,12 +14,12 @@ export class DashboardComponent implements OnInit {
   constructor(private huetteService: HuetteService) { }
 
   ngOnInit() {
-  	this.getHuetten();
+  	//this.getHuetten();
   }
-
+/*
   getHuetten(): void {
   	this.huetteService.getHuetten()
-  		.subscribe(huetten => this.huetten = huetten.slice(1, 5));
+  		.subscribe(huetten => this.huetten = huetten);
   }
-
+*/
 }

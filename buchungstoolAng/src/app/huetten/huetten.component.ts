@@ -15,12 +15,6 @@ export class HuettenComponent implements OnInit {
   constructor(private huetteService: HuetteService) { }
 
   ngOnInit() {
-  	this.getHuetten();
-  }
-
-  getHuetten(): void {
-    this.huetteService.getHuetten()
-      .subscribe(huetten => this.huetten = huetten);
   }
 
 }

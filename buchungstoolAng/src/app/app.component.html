@@ -1,11 +1,24 @@
 <div style="text-align:center">
   <h1>{{title}}</h1>
 
+  	 <!-- Show this view if "show_read_products_html" property of AppComponent is true. -->
+    <app-read-huetten
+        *ngIf="show_read_huetten_html"
+        (show_read_one_huette_event)="showReadOneHuette($event)">
+    </app-read-huetten>
+
+	<app-huette-detail
+	    *ngIf="show_read_one_huette_html"
+	    (show_read_huetten_event)="showReadHuetten($event)"
+	    [huetteID]="huetteID">
+	</app-huette-detail>
+
+
 	<nav>
 		<a routerLink="/dashboard">Dashboard</a>
 		<a routerLink="/huetten">Hütten</a>
+		<a routerLink="/admin">Hüttenverwaltung</a>
 	</nav>
-
 
 	<router-outlet></router-outlet>
 </div>

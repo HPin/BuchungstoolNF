@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-12">
+ 
+        <!-- HTML table for our list of product records -->
+        <table class='table table-hover table-responsive table-bordered'>
+ 
+            <tr>
+                <th>huetteID</th>
+                <th>name</th>
+                <th>adresse</th>
+                <th>plz</th>
+                <th>ort</th>
+                <th>plaetze</th>
+                <th>telefonnummer</th>
+                <th>mail</th>
+                <th>preis</th>
+            </tr>
+ 
+            <!-- Use *ngFor directive to loop throught our list of products. -->
+            <tr *ngFor="let huette of huetten">
+                <td>{{ huette.huetteID }}</td>
+                <td>{{ huette.name }}</td>
+                <td>{{ huette.adresse }}</td>
+                <td>{{ huette.plz }}</td>
+                <td>{{ huette.ort }}</td>
+                <td>{{ huette.plaetze }}</td>
+                <td>{{ huette.telefonnummer }}</td>
+                <td>{{ huette.mail }}</td>
+                <td>{{ huette.preis }}</td>
+                <td>
+                    <!-- read one huette button -->
+                    <a (click)="readOneHuette(huette.huetteID)" class='btn btn-primary m-r-5px'>
+                        <span class='glyphicon glyphicon-eye-open'></span> Details
+                    </a>
+ 
+                    <!-- edit product button -->
+                    <a (click)="updateProduct(huette.huetteID)" class='btn btn-info m-r-5px'>
+                        <span class='glyphicon glyphicon-edit'></span> Buchen
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

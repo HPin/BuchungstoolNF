@@ -1,10 +1,36 @@
-<div *ngIf="huette">
-  <h2>{{ huette.name | uppercase }} Details</h2>
-  <div><span>id: </span>{{huette.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="huette.name" placeholder="name"/>
-    </label>
-  </div>
-  <button (click)="goBack()">go back</button>
+<div class="row m-b-18px">
+    <div class="col-md-12">
+        <a (click)="readHuetten()" class='btn btn-primary pull-right'>
+            <span class='glyphicon glyphicon-list'></span> Read Products
+        </a>
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="col-md-12">
+        <!-- HTML table for displaying a huette details -->
+        <table class='table table-hover table-responsive table-bordered'>
+ 
+            <tr>
+                <td class="w-40-pct">Name</td>
+                <td>{{huette?.name}}</td>
+            </tr>
+ 
+            <tr>
+                <td>Price</td>
+                <td>&#36;{{huette?.preis}}</td>
+            </tr>
+ 
+            <tr>
+                <td>Description</td>
+                <td>{{huette?.plz}}</td>
+            </tr>
+ 
+            <tr>
+                <td>Category</td>
+                <td>{{huette?.ort}}</td>
+            </tr>
+ 
+        </table>
+    </div>
 </div>
