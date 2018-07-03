@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HuetteService } from '../../huette.service';
 import { Observable } from 'rxjs';
 import { Huette } from '../../huette';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-read-huetten',
@@ -17,11 +18,13 @@ export class ReadHuettenComponent implements OnInit {
   huetten: Huette[];
 
   // initialize productService to retrieve list products in the ngOnInit()
-  constructor(private huetteService: HuetteService){}
+  constructor(private _huetteService: HuetteService,
+              private _router: Router
+  ){}
 
   // Read products from API.
   ngOnInit(){
-      this.huetteService.readHuetten()
+      this._huetteService.readHuetten()
           .subscribe(huetten => this.huetten=huetten['records']
           );
   }
@@ -34,6 +37,11 @@ export class ReadHuettenComponent implements OnInit {
           huetteID: _id,
           title: "Read One Huette"
       });
+  }
+
+  // redirect to booking component
+  openBookingFor(_id) {
+    this._router.navigate(["/booking/" + _id]);
   }
 
 }

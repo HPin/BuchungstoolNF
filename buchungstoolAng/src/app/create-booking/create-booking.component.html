@@ -1,0 +1,96 @@
+<h1>Buchungsdetails</h1>
+
+ 
+<!-- HTML form for creating a booking -->
+<div class="row">
+<div class="col-md-12">
+ 
+<!--
+    1. Bind our HTML form to Angular using [formGroup]
+    2. If form was submitted, call createbooking() method of CreatebookingComponent
+-->
+<form [formGroup]="create_booking_form" (ngSubmit)="createBooking()">
+<table class="table table-hover table-responsive table-bordered">
+    <tr>
+        <td>Erwachsene</td>
+        <td>
+            <input
+                formControlName="erwachsene"
+                type="number" name="erwachsene"
+                class="form-control" required />
+ 
+            <!-- show this error if the field is 'empty' and 'touched' -->
+            <div
+                *ngIf="create_booking_form.get('erwachsene').touched && create_booking_form.get('erwachsene').hasError('required')"
+                class="alert alert-danger">
+            Bitte geben Sie eine Personenzahl an.
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Kinder</td>
+        <td>
+            <input
+                formControlName="kinder"
+                type="number" name="kinder"
+                class="form-control" required />
+ 
+            <!-- show this error if the field is 'empty' and 'touched' -->
+            <div
+                *ngIf="create_booking_form.get('kinder').touched && create_booking_form.get('kinder').hasError('required')"
+                class="alert alert-danger">
+            Bitte geben Sie eine Personenzahl an.
+            </div>
+        </td>
+    </tr>
+ 
+    
+    <tr>
+        <td>Anreisedatum</td>
+        <td>
+            <input
+                formControlName="checkinDatum"
+                type="date" name="checkinDatum"
+                class="form-control" required />
+ 
+            <!-- show this error if the field is 'empty' and 'touched' -->
+            <div
+                *ngIf="create_booking_form.get('checkinDatum').touched && create_booking_form.get('checkinDatum').hasError('required')"
+                class="alert alert-danger">
+            Bitte geben Sie das Anreisedatum an.
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Abreisedatum</td>
+        <td>
+            <input
+                formControlName="checkoutDatum"
+                type="date" name="checkoutDatum"
+                class="form-control" required />
+ 
+            <!-- show this error if the field is 'empty' and 'touched' -->
+            <div
+                *ngIf="create_booking_form.get('checkoutDatum').touched && create_booking_form.get('checkoutDatum').hasError('required')"
+                class="alert alert-danger">
+            Bitte geben Sie das Abreisedatum an.
+            </div>
+        </td>
+    </tr>
+ 
+    <tr>
+        <td></td>
+        <td>
+            <!-- disable the submit button if the form is 'invalid' -->
+            <button class="btn btn-primary" type="submit" [disabled]="create_booking_form.invalid">
+                <span class="glyphicon glyphicon-plus"></span> Speichern
+            </button>
+        </td>
+    </tr>
+</table>
+</form>
+ 
+</div>
+</div>

@@ -1,6 +1,6 @@
 h1 {
   font-size: 1.2em;
-  color: #54af2e;
+  color: #FFFFF;
   margin-bottom: 0;
 }
 h2 {
@@ -9,22 +9,23 @@ h2 {
   padding-top: 0;
 }
 nav a {
+  color: #52af2e;
   padding: 5px 30px;
   text-decoration: none;
   margin-top: 10px;
   margin-right: 5px;
   margin-left: 5px; 
   display: inline-block;
-  background-color: #eee;
   border-radius: 4px;
 }
 nav a:visited, a:link {
-  color: #607d8b;
+  color: #FFFF;
+
+  background-color: #52af2e;  /* default naturfreunde color ... invisible in nav bar, but everywhere else*/
 }
 nav a:hover {
-  color: #039be5;
-  background-color: #cfd8dc;
+  background-color: #459226;
 }
 nav a.active {
-  color: #039be5;
+  color: #459226;
 }
