@@ -1,36 +1,23 @@
-<div class="row m-b-18px">
-    <div class="col-md-12">
-        <a (click)="readHuetten()" class='btn btn-primary pull-right'>
-            <span class='glyphicon glyphicon-list'></span> Read Products
+
+
+<div class="jumbotron">
+  <a (click)="goBack()" class='btn backBtn'>
+    <span class='fa fa-chevron-circle-left'></span> Zurück zur Übersicht
+  </a>
+  <div class="container">
+    <h1 class="display-3">{{huette.name}}</h1>
+    <button type="button" class="btn btn-primary" disabled="true">{{huette.preis}} EUR/Nacht</button>
+    <button type="button" class="btn btn-primary" disabled="true">Bis zu {{huette.plaetze}} Personen</button>
+    <p>{{huette.adresse}}</p>
+    <p>{{huette.plz}} {{huette.ort}}</p>
+    <p>Tel.: {{huette.telefonnummer}}</p>
+    <p>E-Mail: {{huette.mail}}</p>
+    <p>Bis zu {{huette.plaetze}} Personen</p>
+    <p> 
+        <a (click)="openBookingFor(huette.huetteID)" class='btn buchenBtn'>
+            <span class='fa fa-hotel'></span> Jetzt Buchen
         </a>
-    </div>
+    </p>
+  </div>
 </div>
- 
-<div class="row">
-    <div class="col-md-12">
-        <!-- HTML table for displaying a huette details -->
-        <table class='table table-hover table-responsive table-bordered'>
- 
-            <tr>
-                <td class="w-40-pct">Name</td>
-                <td>{{huette?.name}}</td>
-            </tr>
- 
-            <tr>
-                <td>Price</td>
-                <td>&#36;{{huette?.preis}}</td>
-            </tr>
- 
-            <tr>
-                <td>Description</td>
-                <td>{{huette?.plz}}</td>
-            </tr>
- 
-            <tr>
-                <td>Category</td>
-                <td>{{huette?.ort}}</td>
-            </tr>
- 
-        </table>
-    </div>
-</div>
+<img class="card-img-top" src={{huette.imageurl}} alt="Card image cap">

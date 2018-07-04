@@ -1,0 +1,25 @@
+a.btn {
+	color: white;
+	margin-right: 3px;
+}
+
+a.buchenBtn {
+    background-color: #191970;
+}
+
+a.buchenBtn:hover {
+  color: yellow;
+}
+
+a.detailBtn {
+    background-color: green;
+}
+
+.card-img-top {
+    position: relative;
+    float: left;
+    height: 250px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}

@@ -8,41 +8,37 @@
 
   	<div class="collapse navbar-collapse" id="navbarSupportedContent">
   		<ul class="navbar-nav mr-auto">
-  			<li class="nav-item">
+  			<li class="nav-item active">
   				<a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
   			</li>
   		</ul>
   		
   		<ul class="navbar-nav">
-  			<a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-  			<a class="nav-link" routerLink="/sign-up" routerLinkActive="active">Registrieren</a>
+        <a routerLink="/login" class='btn verwaltungBtn m-r-5px' style="
+                      color: #FFFF;
+                      background-color: blue;
+                      padding: 5px 10px;
+                      text-decoration: none;
+                      margin-top: 5px;
+                      margin-right: 5px;
+                      margin-left: 5px; 
+                      display: inline-block;
+                      border-radius: 4px;">
+            <span class='fa fa-hotel'></span> Verwaltung-Login
+        </a>
   		</ul>
   	</div>
 </nav>
 
 
 
-<div style="text-align:center">
-  <h1> Finde die perfekte Hütte für deinen nächsten Urlaub.</h1>
 
-  	 <!-- Show this view if "show_read_products_html" property of AppComponent is true. -->
-    <app-read-huetten
-        *ngIf="show_read_huetten_html"
-        (show_read_one_huette_event)="showReadOneHuette($event)">
-    </app-read-huetten>
-
-	<app-huette-detail
-	    *ngIf="show_read_one_huette_html"
-	    (show_read_huetten_event)="showReadHuetten($event)"
-	    [huetteID]="huetteID">
-	</app-huette-detail>
+<main role="main">
+  <router-outlet></router-outlet>
+</main>
 
 
-	<nav>
-		<a routerLink="/dashboard">Dashboard</a>
-		<a routerLink="/huetten">Hütten</a>
-		<a routerLink="/admin">Hüttenverwaltung</a>
-	</nav>
 
-	<router-outlet></router-outlet>
-</div>
+<footer class="container">
+  <p>&copy; Naturfreunde-Linz 2018</p>
+</footer>

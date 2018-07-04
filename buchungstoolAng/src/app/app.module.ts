@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthService } from './auth.service';
 import { CreateBookingComponent } from './create-booking/create-booking.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { CreateBookingComponent } from './create-booking/create-booking.componen
     LoginComponent,
     SignUpComponent,
     CreateBookingComponent,
+    CreateUserComponent,
   ],
   imports: [
     BrowserModule,

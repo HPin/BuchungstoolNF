@@ -8,4 +8,5 @@ export class Huette {
 	telefonnummer: string;
 	mail: string;
 	preis: string;
+	imageurl: string;
 }

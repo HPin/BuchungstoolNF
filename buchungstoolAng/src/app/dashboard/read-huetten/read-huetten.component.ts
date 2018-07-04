@@ -12,8 +12,6 @@ import { Router } from '@angular/router';
 })
 export class ReadHuettenComponent implements OnInit {
 
-  @Output() show_read_one_huette_event=new EventEmitter();
-
   // store list of products
   huetten: Huette[];
 
@@ -29,19 +27,29 @@ export class ReadHuettenComponent implements OnInit {
           );
   }
 
-
-  // when user clicks the 'read' button
-  readOneHuette(_id){
-      // tell the parent component (AppComponent)
-      this.show_read_one_huette_event.emit({
-          huetteID: _id,
-          title: "Read One Huette"
-      });
+  scroll(el) {
+      el.scrollIntoView(true);
   }
 
   // redirect to booking component
   openBookingFor(_id) {
     this._router.navigate(["/booking/" + _id]);
   }
+
+
+  // when user clicks the 'read' button
+  readOneHuette(_id){
+      // tell the parent component (AppComponent)
+      this._router.navigate(["/huette/" + _id]);
+      
+      /*
+      this.show_read_one_huette_event.emit({
+          huetteID: _id,
+          title: "Read One Huette"
+      });
+      */
+  }
+
+  
 
 }

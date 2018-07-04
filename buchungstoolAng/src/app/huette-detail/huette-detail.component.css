@@ -10,20 +10,34 @@ input {
   font-size: 1em;
   padding-left: .4em;
 }
+
+a.btn {
+  color: white;
+  margin-right: 3px;
+}
+
+a.backBtn {
+  background-color: black;
+}
+
+a.backBtn:hover {
+  color: #F5F5DC;
+}
+
+a.buchenBtn {
+  background-color: #191970;
+}
+
+a.buchenBtn:hover {
+  color: yellow;
+}
+
 button {
-  margin-top: 20px;
-  font-family: Arial;
-  background-color: #eee;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer; cursor: hand;
+  color: white;
 }
-button:hover {
-  background-color: #cfd8dc;
-}
+
 button:disabled {
-  background-color: #eee;
-  color: #ccc;
-  cursor: auto;
+    margin-bottom: 10px;
+    margin-right: 20px;
+
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { Buchung } from './buchung';
@@ -16,7 +16,7 @@ export class BookingService {
 
   	// Send product data to remote server to create it.
     createBooking(_booking): Observable<Buchung>{
-     
+        console.log(_booking)
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 

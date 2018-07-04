@@ -9,20 +9,20 @@ import { Observable, of } from 'rxjs';
 })
 export class AuthService {
 
-	private mRegisterUrl = "http://localhost/api/login/server.php"
-
 	constructor(private _http: Http) { }
 
-	registerUser(_user) {
-		let headers = new Headers({ 'Content-Type': 'application/json' });
+
+	loginUser(_user) {
+		let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({ headers: headers });
+        let data = 'username='+_user.username+'&password='+_user.password;
 
 		return this._http.post(
-			this.mRegisterUrl, 
-			_user,
+			"http://localhost/api/login/login.php", 
+			data,
 			options
 		).pipe(
-			map(res => res.json())
-		);
+            map(res => res.json())
+        );
 	}
 }

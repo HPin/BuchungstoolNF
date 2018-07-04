@@ -25,7 +25,7 @@ export class HuetteService {
     }
  
    // Get a product details from remote server.
-    readOneHuette(id): Observable<Huette>{
+    readOneHuette(id: number): Observable<Huette>{
         return this._http
             .get("http://localhost/api/huette/read_one.php?id="+id)
             .pipe(

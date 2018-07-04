@@ -14,6 +14,7 @@ export class SignUpComponent implements OnInit {
 	ngOnInit() {
 	}
 
+/*
 	registerUser() {
 		// call the method and subscribe to the observable
 		this._auth.registerUser(this.registerUserData)
@@ -21,7 +22,8 @@ export class SignUpComponent implements OnInit {
 				res => console.log(res),
 				err => console.log(err)
 			)
-		//console.log(this.registerUserData);
+		console.log(this.registerUserData)
 	}
+	*/
 
 }
