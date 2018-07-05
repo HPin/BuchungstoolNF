@@ -10,6 +10,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { CreateBookingComponent } from './create-booking/create-booking.component';
 import { ReadHuettenComponent } from './dashboard/read-huetten/read-huetten.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { BookingFinalComponent } from './booking-final/booking-final.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },	// redirect
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'newuser', component: CreateUserComponent },
   { path: 'booking/:id', component: CreateBookingComponent },
+  { path: 'final', component: BookingFinalComponent },
   { path: '**', component: PageNotFoundComponent }		// Wildcart route 
 ];
 

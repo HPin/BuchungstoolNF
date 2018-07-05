@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { UserService } from '../user.service';
 import { User } from '../user';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-create-user',
@@ -20,7 +22,8 @@ export class CreateUserComponent implements OnInit {
     constructor(
         private _userService: UserService,
         formBuilder: FormBuilder,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        private _router: Router
     ){
         // based on our html form, build our angular form
         this.create_user_form = formBuilder.group({
@@ -57,7 +60,7 @@ export class CreateUserComponent implements OnInit {
         this._userService.createBooking(_user)
             .subscribe(
                  booking => {
-                    // show an alert to tell the user if booking was created or not
+                    this._router.navigate(['/final']);
                     console.log(booking)
                  },
                  error => console.log(error)

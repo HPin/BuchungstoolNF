@@ -19,6 +19,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthService } from './auth.service';
 import { CreateBookingComponent } from './create-booking/create-booking.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { LoginRoutingModule } from './/login-routing.module';
+import { BookingFinalComponent } from './booking-final/booking-final.component';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
     SignUpComponent,
     CreateBookingComponent,
     CreateUserComponent,
+    BookingFinalComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     HttpModule,
     HttpClientModule,
     AdminModule,
-    AppRoutingModule  // <-- needs to be last entry in imports!
+    AppRoutingModule,
+    LoginRoutingModule  // <-- needs to be last entry in imports!
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

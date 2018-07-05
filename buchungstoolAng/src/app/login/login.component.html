@@ -1,28 +1,7 @@
-<div class="row pt-5"> <!-- pt-5 means padding top of 5 -->
-	<div class="col-md-6 mx-auto">
-		<div class="card rounded-0">
+<h2>LOGIN</h2>
+<p>{{message}}</p>
+<p>
+  <button (click)="login()"  *ngIf="!authService.isLoggedIn">Login</button>
+  <button (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
+</p>`
 
-			<div class="card-header">
-				<h3 class="mb-0">Verwaltungslogin</h3>
-			</div>
-
-			<div class="card-body">
-				<form class="form">
-					<!-- Mail -->
-					<div class="form-group"> 
-						<label for="">E-Mail</label>
-						<input [(ngModel)]="loginUserData.username" name="username" type="email" class="form-control rounded-0" required>
-					</div>	
-
-					<!-- password -->
-					<div class="form-group"> 
-						<label for="">Passwort</label>
-						<input [(ngModel)]="loginUserData.password" name="password" type="password" class="form-control rounded-0" required>
-					</div>
-					<button (click)="loginUser()" type="button" class="btn btn-success float-right">Anmelden</button>	
-				</form>
-			</div>
-
-		</div>
-	</div>
-</div>

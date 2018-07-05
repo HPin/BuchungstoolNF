@@ -1,0 +1,58 @@
+<div class="row m-b-18px">
+    <div class="col-md-12">
+        <!-- button to create new product -->
+        <a (click)="createBooking()" class='btn btn-primary pull-right' style="color: white">
+            <span class='fa fa-plus-circle'></span> Neue Buchung
+        </a>
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="col-md-12">
+ 
+        <!-- HTML table for our list of product records -->
+        <table class='table table-hover table-responsive table-bordered'>
+ 
+            <tr>
+            	<th>buchungID</th>
+				<th>buchenderID</th>
+				<th>huetteID</th>
+				<th>erwachsene</th>
+				<th>kinder</th>
+				<th>checkinDatum</th>
+				<th>checkoutDatum</th>
+				<th>zahlungsartID</th>
+				<th>zahlungsDatum</th>
+            </tr>
+ 
+            <!-- Use *ngFor directive to loop throught our list of products. -->
+            <tr *ngFor="let booking of bookings">
+                <td>{{booking.buchungID}}</td>
+                <td>{{booking.buchenderID}}</td>
+                <td>{{booking.huetteID}}</td>
+                <td>{{booking.erwachsene}}</td>
+                <td>{{booking.kinder}}</td>
+                <td>{{booking.checkinDatum}}</td>
+                <td>{{booking.checkoutDatum}}</td>
+                <td>{{booking.zahlungsartID}}</td>
+                <td>{{booking.zahlungsDatum}}</td>
+                <td>
+                    <!-- read one product button -->
+                    <a (click)="readOneBooking(product.id)" class='btn btn-primary m-r-5px' style="color: white">
+                        <span class='fa fa-eye'></span> Read
+                    </a>
+ 
+                    <!-- edit product button -->
+                    <a (click)="updateBooking(product.id)" class='btn btn-info m-r-5px' style="color: white">
+                        <span class='fa fa-edit'></span> Edit
+                    </a>
+ 
+                    <!-- delete product button -->
+                    <a (click)="deleteBooking(product.id)" class='btn btn-danger m-r-5px' style="color: white">
+                        <span class='fa fa-trash'></span> Delete
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

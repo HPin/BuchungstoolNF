@@ -4,6 +4,7 @@ import { FormsModule }    from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { ReadBookingsComponent } from './read-bookings/read-bookings.component';
 
 @NgModule({
   imports: [
@@ -11,6 +12,6 @@ import { AdminRoutingModule } from './admin-routing.module';
     FormsModule,
     AdminRoutingModule
   ],
-  declarations: [AdminComponent, SignInComponent]
+  declarations: [AdminComponent, SignInComponent, ReadBookingsComponent]
 })
 export class AdminModule { }

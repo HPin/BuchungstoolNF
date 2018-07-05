@@ -14,6 +14,24 @@ export class BookingService {
     constructor(private _http : Http){ }
 
 
+    readBookings() : Observable<Buchung[]> {
+        return this._http
+            .get("http://localhost/api/buchung/read.php")
+            .pipe(
+                map(res => res.json())
+            );
+    }
+
+    // Get a product details from remote server.
+    readOneBooking(id: number): Observable<Buchung>{
+        return this._http
+            .get("http://localhost/api/buchung/read_one.php?id="+id)
+            .pipe(
+                map(res => res.json())
+            );
+    }
+
+
   	// Send product data to remote server to create it.
     createBooking(_booking): Observable<Buchung>{
         console.log(_booking)

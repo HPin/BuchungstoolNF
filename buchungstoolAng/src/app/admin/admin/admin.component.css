@@ -1,0 +1,42 @@
+h1 {
+  font-size: 1.2em;
+  color: #FFFFF;
+  margin-bottom: 0;
+}
+h2 {
+  font-size: 2em;
+  margin-top: 0;
+  padding-top: 0;
+}
+nav a {
+  color: #FFFF;
+  padding: 5px 30px;
+  text-decoration: none;
+  margin-top: 0px;
+  margin-right: 5px;
+  margin-left: 5px; 
+  display: inline-block;
+  border-radius: 4px;
+}
+nav a:visited, a:link {
+  color: #FFFF;
+
+  background-color: #52af2e;  /* default naturfreunde color ... invisible in nav bar, but everywhere else*/
+}
+nav a:hover {
+  background-color: #459226;
+}
+
+nav a.navbar-brand {
+  font-size: 1.5em;
+  color: #FFFF;
+  font-weight: lighter;
+}
+
+a.nav-link {
+  font-size: 1.2em;
+  font-weight: normal;
+}
+
+
+                      

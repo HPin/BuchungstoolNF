@@ -1,1 +1,10 @@
-<h1>Admin Hüttenverwaltung</h1>
+<h3>Admin Hüttenverwaltung</h3>
+
+<nav>
+  <a routerLink="./" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+  <a routerLink="./bookings" routerLinkActive="active">Meine Buchungen</a>
+  <a routerLink="./management" routerLinkActive="active">Hüttenverwaltung</a>
+
+</nav>
+<router-outlet></router-outlet>
