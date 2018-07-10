@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   setMessage() {
     this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
   }
- 
+ /*
   login() {
     this.message = 'Trying to log in ...';
  
@@ -42,22 +42,28 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
     this.setMessage();
   }
-
-
-  /*
-  loginUserData = {}
-
-  constructor(private _authService: AuthService) { }
+  */
 
   
+  loginUserData = {}
 
   loginUser() {
   	console.log(this.loginUserData)
-  	this._authService.loginUser(this.loginUserData)
+  	this.authService.loginUser(this.loginUserData)
   		.subscribe(
   			res => {
   				if (res.status == 'loggedin') {
+            alert('login success');
+            this.authService.saveUserData(res);
   					console.log('login success')
+
+
+            // Get the redirect URL from our auth service
+            // If no redirect has been set, use the default
+            let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
+     
+            // Redirect the user
+            this.router.navigate([redirect]);
   				} else {
   					alert('invalid login');
   					console.log('login failed')
@@ -66,5 +72,5 @@ export class LoginComponent implements OnInit {
   			err => console.log(err)
   		)
   }
-  */
+  
 }

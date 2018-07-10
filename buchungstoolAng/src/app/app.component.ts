@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
+import { Router }      from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -10,6 +13,13 @@ export class AppComponent {
 	huetteID;
 	show_read_huetten_html=true;
 	show_read_one_huette_html=false;
+
+	constructor(private authService: AuthService, private router: Router) {	  }
+
+	logout() {
+	    this.authService.logoutAndClear();
+	    this.router.navigate(['/dashboard']);
+	}
 
 	// show huetten list
 	showReadHuetten($event){

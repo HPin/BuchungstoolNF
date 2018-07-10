@@ -13,8 +13,23 @@
   			</li>
   		</ul>
   		
+      <ul class="navbar-nav">
+        <a (click)="logout()" *ngIf="authService.isUserLoggedIn()" class='btn logoutBtn m-r-5px' style="
+                      color: #FFFF;
+                      background-color: red;
+                      padding: 5px 10px;
+                      text-decoration: none;
+                      margin-top: 5px;
+                      margin-right: 5px;
+                      margin-left: 5px; 
+                      display: inline-block;
+                      border-radius: 4px;">
+            <span class='fa fa-sign-out'></span> Logout
+        </a>
+      </ul>
+
   		<ul class="navbar-nav">
-        <a routerLink="/login" class='btn verwaltungBtn m-r-5px' style="
+        <a routerLink="/login" *ngIf="!authService.isUserLoggedIn()" class='btn verwaltungBtn m-r-5px' style="
                       color: #FFFF;
                       background-color: blue;
                       padding: 5px 10px;
@@ -24,9 +39,23 @@
                       margin-left: 5px; 
                       display: inline-block;
                       border-radius: 4px;">
-            <span class='fa fa-hotel'></span> Verwaltung-Login
+            <span class='fa fa-sign-in'></span> Verwaltung-Login
         </a>
   		</ul>
+      <ul class="navbar-nav">
+        <a routerLink="/admin" *ngIf="authService.isUserLoggedIn()" class='btn verwaltungBtn m-r-5px' style="
+                      color: #FFFF;
+                      background-color: blue;
+                      padding: 5px 10px;
+                      text-decoration: none;
+                      margin-top: 5px;
+                      margin-right: 5px;
+                      margin-left: 5px; 
+                      display: inline-block;
+                      border-radius: 4px;">
+            <span class='fa fa-hotel'></span> Verwaltung
+        </a>
+      </ul>
   	</div>
 </nav>
 
