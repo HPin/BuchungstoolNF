@@ -3,7 +3,7 @@ class Database{
  
     // specify your own database credentials
     private $host = "localhost";
-    private $db_name = "api_db";
+    private $db_name = "buchungstool";
     private $username = "root";
     private $password = "";
     public $conn;
@@ -18,6 +18,7 @@ class Database{
             $this->conn->exec("set names utf8");
         }catch(PDOException $exception){
             echo "Connection error: " . $exception->getMessage();
+            die();
         }
  
         return $this->conn;

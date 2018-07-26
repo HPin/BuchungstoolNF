@@ -5,25 +5,26 @@ header("Content-Type: application/json; charset=UTF-8");
  
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/product.php';
- 
+include_once '../objects/huette.php';
+
 // instantiate database and product object
 $database = new Database();
 $db = $database->getConnection();
  
 // initialize object
-$product = new Product($db);
+$huette = new Huette($db);
  
 // query products
-$stmt = $product->read();
+$stmt = $huette->read();
 $num = $stmt->rowCount();
+
  
 // check if more than 0 record found
 if($num>0){
  
     // products array
-    $products_arr=array();
-    $products_arr["records"]=array();
+    $huetten_arr=array();
+    $huetten_arr["records"]=array();
  
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -34,24 +35,28 @@ if($num>0){
         // just $name only
         extract($row);
  
-        $product_item=array(
-            "id" => $id,
+        $huette_item=array(
+            "huetteID" => $huetteID,
             "name" => $name,
-            "description" => html_entity_decode($description),
-            "price" => $price,
-            "category_id" => $category_id,
-            "category_name" => $category_name
+            "adresse" => $adresse,
+            "plz" => $plz,
+            "ort" => $ort,
+            "plaetze" => $plaetze,
+            "telefonnummer" => $telefonnummer,
+            "mail" => $mail,
+            "preis" => $preis,
+            "imageurl" => $imageurl
         );
  
-        array_push($products_arr["records"], $product_item);
+        array_push($huetten_arr["records"], $huette_item);
     }
  
-    echo json_encode($products_arr);
+    echo json_encode($huetten_arr);
 }
  
 else{
     echo json_encode(
-        array("message" => "No products found.")
+        array("message" => "Keine Huetten gefunden.")
     );
 }
 ?>
