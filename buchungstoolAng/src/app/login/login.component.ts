@@ -8,42 +8,13 @@ import { Router }      from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-   message: string;
  
-  constructor(public authService: AuthService, public router: Router) {
-    this.setMessage();
-  }
+  isSuccessful = true;
+
+  constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit() {
   }
- 
-  setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
-  }
- /*
-  login() {
-    this.message = 'Trying to log in ...';
- 
-    this.authService.login().subscribe(() => {
-      this.setMessage();
-      if (this.authService.isLoggedIn) {
-        // Get the redirect URL from our auth service
-        // If no redirect has been set, use the default
-        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
- 
-        // Redirect the user
-        this.router.navigate([redirect]);
-      }
-    });
-  }
- 
-  logout() {
-    this.authService.logout();
-    this.setMessage();
-  }
-  */
-
   
   loginUserData = {}
 
@@ -53,7 +24,9 @@ export class LoginComponent implements OnInit {
   		.subscribe(
   			res => {
   				if (res.status == 'loggedin') {
-            alert('login success');
+            //alert('login success');
+            this.isSuccessful = true;
+
             this.authService.saveUserData(res);
   					console.log('login success')
 
@@ -65,7 +38,8 @@ export class LoginComponent implements OnInit {
             // Redirect the user
             this.router.navigate([redirect]);
   				} else {
-  					alert('invalid login');
+            this.isSuccessful = false;
+  					
   					console.log('login failed')
   				}
   			},

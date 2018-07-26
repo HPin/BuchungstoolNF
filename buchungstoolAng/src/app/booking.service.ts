@@ -22,6 +22,14 @@ export class BookingService {
             );
     }
 
+    readBookingsByDate(_month: number, _year: number) {
+        return this._http
+            .get("http://localhost/api/buchung/read_month.php?year="+_year+"&month="+_month)
+            .pipe(
+                map(res => res.json())
+            );
+    }
+
     // Get a product details from remote server.
     readOneBooking(id: number): Observable<Buchung>{
         return this._http

@@ -14,6 +14,13 @@ import { Router } from '@angular/router';
 export class ReadBookingsComponent implements OnInit {
 
   	bookings: Buchung[];
+    rooms = ['Zimmer 1', 'Zimmer 2', 'Zimmer 3'];
+    today: Date;
+    year: number;
+    month: number;
+    numberOfDays: number;
+    days: number[];
+    bookingsOfMonth: Buchung[];
  
     constructor(
         private bookingService: BookingService,
@@ -27,6 +34,53 @@ export class ReadBookingsComponent implements OnInit {
             .subscribe(bookings =>
                 this.bookings=bookings['records']
             );
+
+        this.loadCalendar();
+    }
+
+    loadCalendar() {
+        let today = new Date();
+        this.today = today;
+        this.year = today.getFullYear();
+        this.month = today.getMonth() + 1;
+        this.calcDaysOfMonth();
+        this.loadBookingsOfMonth();
+    }
+
+    loadBookingsOfMonth() {
+        this.bookingService.readBookingsByDate(this.month, this.year)
+            .subscribe(bookings =>
+                this.bookingsOfMonth=bookings['records']
+            );
+    }
+
+    calcDaysOfMonth() {
+        this.numberOfDays = new Date(this.year, this.month, 0).getDate();
+
+        let dayArr = Array(this.numberOfDays+1).fill(0).map((x,i)=>i);
+        this.days = dayArr.slice(1);
+    }
+
+    loadNextMonth() {
+        if (this.month == 12) {
+            this.year += 1;
+            this.month = 1;
+        } else {
+            this.month += 1;
+        }
+        this.calcDaysOfMonth();
+        this.loadBookingsOfMonth();
+    }
+
+    loadPreviousMonth() {
+        if (this.month == 1) {
+            this.year -= 1;
+            this.month = 12;
+        } else {
+            this.month -= 1;
+        }
+        this.calcDaysOfMonth();
+        this.loadBookingsOfMonth();
     }
 
     // when user clicks the 'read' button

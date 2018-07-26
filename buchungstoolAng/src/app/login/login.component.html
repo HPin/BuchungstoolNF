@@ -1,4 +1,8 @@
 
+<div *ngIf="!isSuccessful" class="alert alert-danger" role="alert">
+	Benutzername oder Passwort falsch!
+</div>
+
 <div class="row pt-5"> <!-- pt-5 means padding top of 5 -->
 	<div class="col-md-6 mx-auto">
 		<div class="card rounded-0">
@@ -27,3 +31,13 @@
 		</div>
 	</div>
 </div>
+
+<!--
+<div *ngIf="isSuccessful" class="alert alert-success alert-dismissible fade show" role="alert">
+	Login erfolgreich!
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+-->
+

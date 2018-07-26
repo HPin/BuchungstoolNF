@@ -7,6 +7,64 @@
     </div>
 </div>
  
+<h1>{{today}}</h1>
+<h1>{{year}}</h1>
+<h1>{{month}}</h1>
+<h1>{{days}}</h1>
+<h1>{{numberOfDays}}</h1>
+
+<div class="month"> 
+  <ul>
+    <button (click)="loadPreviousMonth()" type="button" class="prev">&#10094;</button>
+    <button (click)="loadNextMonth()" type="button" class="next">&#10095;</button>
+    <li>{{month}}.<br><span style="font-size:18px">{{year}}</span></li>
+  </ul>
+</div>
+
+
+<ul class="daysofmonth">
+  <li></li>
+  <li *ngFor="let day of days">{{day}}</li>
+</ul>
+
+
+<ul *ngFor="let room of rooms" class="occupation"> 
+
+  <li>{{room}}</li>
+  <li></li>
+  <li>X</li>
+  <li>X</li>
+  <li>X</li>
+  <li>X</li>
+  <li>X</li>
+  <li></li>
+  <li></li>
+  <li><span class="active">X</span></li>
+  <li>X</li>
+  <li>X</li>
+  <li>X</li>
+  <li>X</li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li>X</li>
+  <li>X</li>
+</ul> 
+
+
+
+
 <div class="row">
     <div class="col-md-12">
  
@@ -14,42 +72,38 @@
         <table class='table table-hover table-responsive table-bordered'>
  
             <tr>
-            	<th>buchungID</th>
-				<th>buchenderID</th>
-				<th>huetteID</th>
-				<th>erwachsene</th>
-				<th>kinder</th>
-				<th>checkinDatum</th>
-				<th>checkoutDatum</th>
-				<th>zahlungsartID</th>
-				<th>zahlungsDatum</th>
+                <th>BuchungID</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+        				<th>Erwachsene</th>
+        				<th>Kinder</th>
+        				<th>Von</th>
+        				<th>Bis</th>
             </tr>
  
             <!-- Use *ngFor directive to loop throught our list of products. -->
-            <tr *ngFor="let booking of bookings">
+            <tr *ngFor="let booking of bookingsOfMonth">
                 <td>{{booking.buchungID}}</td>
-                <td>{{booking.buchenderID}}</td>
-                <td>{{booking.huetteID}}</td>
+                <td>{{booking.buchenderVorname}}</td>
+                <td>{{booking.buchenderNachname}}</td>
                 <td>{{booking.erwachsene}}</td>
                 <td>{{booking.kinder}}</td>
                 <td>{{booking.checkinDatum}}</td>
                 <td>{{booking.checkoutDatum}}</td>
-                <td>{{booking.zahlungsartID}}</td>
-                <td>{{booking.zahlungsDatum}}</td>
                 <td>
                     <!-- read one product button -->
                     <a (click)="readOneBooking(product.id)" class='btn btn-primary m-r-5px' style="color: white">
-                        <span class='fa fa-eye'></span> Read
+                        <span class='fa fa-eye'></span> Details
                     </a>
  
                     <!-- edit product button -->
                     <a (click)="updateBooking(product.id)" class='btn btn-info m-r-5px' style="color: white">
-                        <span class='fa fa-edit'></span> Edit
+                        <span class='fa fa-edit'></span> Ändern
                     </a>
  
                     <!-- delete product button -->
                     <a (click)="deleteBooking(product.id)" class='btn btn-danger m-r-5px' style="color: white">
-                        <span class='fa fa-trash'></span> Delete
+                        <span class='fa fa-trash'></span> Löschen
                     </a>
                 </td>
             </tr>
