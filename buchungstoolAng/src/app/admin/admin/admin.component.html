@@ -1,10 +1,16 @@
 <h3>Admin Hüttenverwaltung</h3>
 <p>Willkommen, {{name}}</p>
-<nav>
-  <a routerLink="./" routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-  <a routerLink="./bookings" routerLinkActive="active">Meine Buchungen</a>
-  <a routerLink="./management" routerLinkActive="active">Hüttenverwaltung</a>
 
-</nav>
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a routerLink="./" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+  </li>
+  <li class="nav-item">
+  	 <a routerLink="./bookings" routerLinkActive="active">Buchungskalender</a>
+  </li>
+  <li class="nav-item">
+    <a routerLink="./management" routerLinkActive="active">Hüttenverwaltung</a>
+  </li>
+</ul>
+
 <router-outlet></router-outlet>

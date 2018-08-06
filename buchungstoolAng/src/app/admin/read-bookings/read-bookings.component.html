@@ -7,61 +7,34 @@
     </div>
 </div>
  
-<h1>{{today}}</h1>
-<h1>{{year}}</h1>
-<h1>{{month}}</h1>
-<h1>{{days}}</h1>
-<h1>{{numberOfDays}}</h1>
-
 <div class="month"> 
   <ul>
     <button (click)="loadPreviousMonth()" type="button" class="prev">&#10094;</button>
     <button (click)="loadNextMonth()" type="button" class="next">&#10095;</button>
-    <li>{{month}}.<br><span style="font-size:18px">{{year}}</span></li>
+    <li class="mon">{{monthName}}</li>
+    <li class="yea">{{year}}</li>
   </ul>
 </div>
 
 
 <ul class="daysofmonth">
-  <li></li>
+  <li class="ZimmerHeading">Zimmer</li>
   <li *ngFor="let day of days">{{day}}</li>
 </ul>
 
-
-<ul *ngFor="let room of rooms" class="occupation"> 
-
-  <li>{{room}}</li>
-  <li></li>
-  <li>X</li>
-  <li>X</li>
-  <li>X</li>
-  <li>X</li>
-  <li>X</li>
-  <li></li>
-  <li></li>
-  <li><span class="active">X</span></li>
-  <li>X</li>
-  <li>X</li>
-  <li>X</li>
-  <li>X</li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li>X</li>
-  <li>X</li>
-</ul> 
-
+<ul *ngFor="let zimmer of zimmerArr" class="occupation">
+    
+    <li class="zimmername">{{zimmer.bezeichnung}}</li>
+    
+    <li *ngFor="let day of days">
+        <div *ngFor="let booking of getBookingsForRoom(zimmer.zimmerID)">
+            <div *ngIf="displaythis(day, booking)">
+                <button (click)="readOneBooking(booking.buchungID)" type="button" class="xbutton">X</button>
+            </div>
+        </div>
+    </li>
+    
+</ul>
 
 
 

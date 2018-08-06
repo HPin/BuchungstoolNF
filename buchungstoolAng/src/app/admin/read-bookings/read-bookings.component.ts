@@ -1,48 +1,90 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../../booking.service';
+import { ZimmerService } from '../../zimmer.service';
 import { Observable } from 'rxjs';
 import { Buchung } from '../../buchung';
+import { Zimmer } from '../../zimmer';
 import { Router } from '@angular/router';
 
+const monthNames = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli',
+                        'August', 'September', 'Oktober', 'November', 'Dezember'];
 
 @Component({
   selector: 'app-read-bookings',
   templateUrl: './read-bookings.component.html',
   styleUrls: ['./read-bookings.component.css'],
-  providers: [BookingService]
+  providers: [BookingService, ZimmerService]
 })
 export class ReadBookingsComponent implements OnInit {
 
-  	bookings: Buchung[];
+    zimmerArr: Zimmer[];
     rooms = ['Zimmer 1', 'Zimmer 2', 'Zimmer 3'];
     today: Date;
     year: number;
     month: number;
+    monthName: string;
     numberOfDays: number;
     days: number[];
     bookingsOfMonth: Buchung[];
+    bookingsForRoom: Buchung[];
  
     constructor(
         private bookingService: BookingService,
-        private _router: Router
+        private zimmerService: ZimmerService,
+        private router: Router
     ){}
  
+    displaythis(_day: number, _booking: Buchung) {
 
-    // Read all bookings
+        // create new date because the date is only recognized as a string
+        // --> date functions would not work
+        let start: number = new Date(_booking.checkinDatum).getDate();
+        let end: number = new Date(_booking.checkoutDatum).getDate();
+
+        if (_day >= start && _day <= end) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     ngOnInit(){
-        this.bookingService.readBookings()
-            .subscribe(bookings =>
-                this.bookings=bookings['records']
-            );
-
+        
+        this.zimmerService.readZimmer()
+            .subscribe(zimmer =>
+                this.zimmerArr=zimmer['records']
+             );
+        
         this.loadCalendar();
     }
+
+    
+    getBookingsForRoom(_zimmerID: number) {
+
+        let bookingArr: Buchung[] = new Array();
+
+        if (this.bookingsOfMonth == null) {
+            return
+        }
+
+        for (let booking of this.bookingsOfMonth) {
+            if (booking.zimmerID == _zimmerID) {
+                bookingArr.push(booking);
+            }
+        }
+
+        this.bookingsForRoom = bookingArr;
+        return bookingArr;
+    }
+
 
     loadCalendar() {
         let today = new Date();
         this.today = today;
         this.year = today.getFullYear();
         this.month = today.getMonth() + 1;
+        this.monthName = monthNames[today.getMonth()];
         this.calcDaysOfMonth();
         this.loadBookingsOfMonth();
     }
@@ -85,7 +127,7 @@ export class ReadBookingsComponent implements OnInit {
 
     // when user clicks the 'read' button
     readOneBooking(_id){
-        //this._router.navigate(["/buchung/" + _id]);
+        this.router.navigate(["/admin/booking/" + _id]);
     }
 
     createBooking() {

@@ -4,6 +4,7 @@ export class Buchung {
 	buchenderVorname: String;
 	buchenderNachname: String;
 	huetteID: number;
+	zimmerID: number;
 	erwachsene: number;
 	kinder: number;
 	checkinDatum: Date;

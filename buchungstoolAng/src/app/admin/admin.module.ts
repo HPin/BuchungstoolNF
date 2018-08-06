@@ -5,6 +5,7 @@ import { AdminComponent } from './admin/admin.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ReadBookingsComponent } from './read-bookings/read-bookings.component';
+import { BookingDetailComponent } from './booking-detail/booking-detail.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { ReadBookingsComponent } from './read-bookings/read-bookings.component';
     FormsModule,
     AdminRoutingModule
   ],
-  declarations: [AdminComponent, SignInComponent, ReadBookingsComponent]
+  declarations: [AdminComponent, SignInComponent, ReadBookingsComponent, BookingDetailComponent]
 })
 export class AdminModule { }

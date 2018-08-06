@@ -1,0 +1,150 @@
+<div class="jumbotron">
+  <a (click)="goBack()" class='btn backBtn'>
+    <span class='fa fa-chevron-circle-left'></span> Zurück zur Übersicht
+  </a>
+  <div class="container">
+
+    <h1>
+      Buchung Nr. {{booking?.buchungID}}
+      <small class="text-muted">Buchungsdetails</small>
+    </h1>
+    <hr/>
+
+
+    <table id="table1">
+      <tr>
+        <th>Zimmer</th>
+        <td>{{booking?.zimmerID}}</td>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <td>{{booking?.buchenderVorname}} {{booking?.buchenderNachname}}</td>
+      </tr>
+      <tr>
+        <th>Erwachsene</th>
+        <td>{{booking?.erwachsene}}</td>
+      </tr>
+      <tr>
+        <th>Kinder</th>
+        <td>{{booking?.kinder}}</td>
+      </tr>
+      <tr>
+        <th>Anreisedatum</th>
+        <td>{{booking?.checkinDatum}}</td>
+      </tr>
+      <tr>
+        <th>Abreisedatum</th>
+        <td>{{booking?.checkoutDatum}}</td>
+      </tr>
+      <tr>
+        <th>Gesamtpreis</th>
+        <td>placeholder</td>
+      </tr>
+      <tr>
+        <th>Bezahlt?</th>
+        <td *ngIf="booking?.zahlungsDatum; else elseBlock">Ja</td>
+        <ng-template #elseBlock><td>Nein</td></ng-template>
+      </tr>
+      <tr>
+        <th>Zahlungsart</th>
+        <td>{{booking?.zahlungsartID}}</td>
+      </tr>
+      <tr>
+        <th>Zahlungsdatum</th>
+        <td>{{booking?.zahlungsDatum}}</td>
+      </tr>
+    </table>
+
+
+    <br>
+    <h1>
+      Buchung Nr. {{booking?.buchungID}}
+      <small class="text-muted">Daten des Buchenden</small>
+    </h1>
+    <hr/>
+
+
+    <table id="table2">
+      <tr>
+        <th>Vorname</th>
+        <td>{{booking?.buchenderVorname}} </td>
+      </tr>
+      <tr>
+        <th>Nachname</th>
+        <td>{{booking?.buchenderNachname}}</td>
+      </tr>
+      <tr>
+        <th>Geburtsdatum</th>
+        <td>{{booking?.erwachsene}}</td>
+      </tr>
+      <tr>
+        <th>Adresse</th>
+        <td>{{booking?.kinder}}</td>
+      </tr>
+      <tr>
+        <th>Postleitzahl</th>
+        <td>{{booking?.checkinDatum}}</td>
+      </tr>
+      <tr>
+        <th>Ort</th>
+        <td>{{booking?.checkoutDatum}}</td>
+      </tr>
+      <tr>
+        <th>Telefon</th>
+        <td>placeholder</td>
+      </tr>
+      <tr>
+        <th>E-Mail</th>
+        <td>{{booking?.zahlungsartID}}</td>
+      </tr>
+    </table>
+
+  
+    <br>
+    <h1>
+      Buchung Nr. {{booking?.buchungID}}
+      <small class="text-muted">Daten der Mitreisenden</small>
+    </h1>
+    <hr/>
+
+    <table id="table3">
+  <tr>
+    <th>Vorname</th>
+    <th>Nachname</th>
+    <th>Geburtsdatum</th>
+  </tr>
+  <tr>
+    <td>Alfred</td>
+    <td>Muster</td>
+    <td>4.8.1996</td>
+  </tr>
+</table>
+
+
+
+<table id="table2">
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>a1</td>
+      <td>b1</td>
+    </tr>
+    <tr>
+      <td>a2</td>
+      <td>b2</td>
+    </tr>
+    <tr>
+      <td>a3</td>
+      <td>b3</td>
+    </tr>
+  </tbody>
+</table>
+
+    
+  </div>
+</div>

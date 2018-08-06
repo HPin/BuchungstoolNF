@@ -3,6 +3,7 @@ import { AuthGuard } from '../auth-guard.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { ReadBookingsComponent } from './read-bookings/read-bookings.component';
+import { BookingDetailComponent } from './booking-detail/booking-detail.component';
 
 const adminRoutes: Routes = [
   { 
@@ -13,10 +14,10 @@ const adminRoutes: Routes = [
       {
         path: '',
         canActivateChild: [AuthGuard],
-        children: [          
+        children: [    
+          { path: 'management', component: ReadBookingsComponent },      
           { path: 'bookings', component: ReadBookingsComponent },
-          { path: 'management', component: ReadBookingsComponent },
-
+          { path: 'booking/:id', component: BookingDetailComponent }
         ]
       }
     ]
