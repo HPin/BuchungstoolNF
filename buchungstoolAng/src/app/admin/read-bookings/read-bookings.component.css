@@ -129,4 +129,5 @@ body {font-family: Verdana, sans-serif;}
 .occupation .xbutton:hover {
     background-color: #e17055;
     color: white;
+    cursor: pointer;
 }

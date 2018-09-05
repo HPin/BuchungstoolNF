@@ -1,6 +1,6 @@
 h1 {
   font-size: 1.2em;
-  color: #FFFFF;
+  color: white;
   margin-bottom: 0;
 }
 h2 {
@@ -9,7 +9,7 @@ h2 {
   padding-top: 0;
 }
 nav a {
-  color: #FFFF;
+  color: white;
   padding: 5px 30px;
   text-decoration: none;
   margin-top: 0px;
@@ -19,7 +19,7 @@ nav a {
   border-radius: 4px;
 }
 nav a:visited, a:link {
-  color: #FFFF;
+  color: white;
 
   background-color: #52af2e;  /* default naturfreunde color ... invisible in nav bar, but everywhere else*/
 }
@@ -32,7 +32,7 @@ nav a.active {
 
 nav a.navbar-brand {
   font-size: 1.5em;
-  color: #FFFF;
+  color: white;
   font-weight: lighter;
 }
 
@@ -42,4 +42,73 @@ a.nav-link {
 }
 
 
-                      
+#verwaltungButton {
+  color: white;
+  background-color: blue;
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-left: 5px; 
+  display: inline-block;
+  border-radius: 4px;
+}          
+
+#verwaltungButton:hover {
+  opacity: 0.8;
+}   
+
+
+
+footer.myFooter {
+  padding-top: 32px!important;
+  padding-bottom: 32px!important;
+  margin-top: 16px!important;
+  text-align: center!important;
+  color: #fff!important;
+  background-color: #000!important;
+}
+
+.socialMediaBar {
+  padding-top: 16px!important;
+  padding-bottom: 16px!important;
+  font-size: 24px!important;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-left: 10px;
+}
+
+.fa:hover {
+  opacity: 0.8;
+}
+
+
+footer nav a {
+  background-color: transparent;
+  color: white;
+  padding: 5px 30px;
+  text-decoration: none;
+  margin-top: 0px;
+  margin-right: 5px;
+  margin-left: 5px; 
+  display: inline-block;
+  border-radius: 4px;
+}
+
+footer nav a:hover {
+  background-color: transparent;
+  color: green;
+}
+
+footer nav a:visited, a:link {
+  color: white;
+
+  background-color: transparent; 
+}

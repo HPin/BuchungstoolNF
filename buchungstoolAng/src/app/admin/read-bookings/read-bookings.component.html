@@ -28,7 +28,7 @@
     
     <li *ngFor="let day of days">
         <div *ngFor="let booking of getBookingsForRoom(zimmer.zimmerID)">
-            <div *ngIf="displaythis(day, booking)">
+            <div *ngIf="isRoomOccupiedAtThisDay(day, booking)">
                 <button (click)="readOneBooking(booking.buchungID)" type="button" class="xbutton">X</button>
             </div>
         </div>
@@ -41,7 +41,6 @@
 <div class="row">
     <div class="col-md-12">
  
-        <!-- HTML table for our list of product records -->
         <table class='table table-hover table-responsive table-bordered'>
  
             <tr>
@@ -54,7 +53,6 @@
         				<th>Bis</th>
             </tr>
  
-            <!-- Use *ngFor directive to loop throught our list of products. -->
             <tr *ngFor="let booking of bookingsOfMonth">
                 <td>{{booking.buchungID}}</td>
                 <td>{{booking.buchenderVorname}}</td>

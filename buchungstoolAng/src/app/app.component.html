@@ -15,7 +15,7 @@
   		
       <ul class="navbar-nav">
         <a (click)="logout()" *ngIf="authService.isUserLoggedIn()" class='btn logoutBtn m-r-5px' style="
-                      color: #FFFF;
+                      color: white;
                       background-color: red;
                       padding: 5px 10px;
                       text-decoration: none;
@@ -29,16 +29,7 @@
       </ul>
 
   		<ul class="navbar-nav">
-        <a routerLink="/login" *ngIf="!authService.isUserLoggedIn()" class='btn verwaltungBtn m-r-5px' style="
-                      color: #FFFF;
-                      background-color: blue;
-                      padding: 5px 10px;
-                      text-decoration: none;
-                      margin-top: 5px;
-                      margin-right: 5px;
-                      margin-left: 5px; 
-                      display: inline-block;
-                      border-radius: 4px;">
+        <a routerLink="/login" id="verwaltungButton" *ngIf="!authService.isUserLoggedIn()" class='btn verwaltungBtn m-r-5px'>
             <span class='fa fa-sign-in'></span> Verwaltung-Login
         </a>
   		</ul>
@@ -67,7 +58,15 @@
 </main>
 
 
+<!-- Footer -->
+<footer class="myFooter">
+  <h5>Buchungstool Naturfreunde</h5>
 
-<footer class="container">
-  <p>&copy; Naturfreunde-Linz 2018</p>
+  <div class="socialMediaBar">
+    <i class="fa fa-facebook-official"></i>
+    <i class="fa fa-twitter"></i>
+    <i class="fa fa-snapchat"></i>
+  </div>
+
+  <p>&copy; <a href="http://linz.naturfreunde.at/" target="_blank">Naturfreunde-Linz 2018</a></p>
 </footer>

@@ -12,6 +12,12 @@
     <p>{{huette?.plz}} {{huette?.ort}}</p>
     <p>Tel.: {{huette?.telefonnummer}}</p>
     <p>E-Mail: {{huette?.mail}}</p>
+
+    <p>Zimmerkategorien:</p>
+    <p *ngFor="let category of categories">
+        {{ category.name }}
+    </p>
+
     <p> 
         <a (click)="openBookingFor(huette?.huetteID)" class='btn buchenBtn'>
             <span class='fa fa-hotel'></span> Jetzt Buchen

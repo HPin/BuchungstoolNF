@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { Zimmer } from './zimmer';
+import { Zimmerkategorie } from './zimmerkategorie';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,10 @@ export class ZimmerService {
             );
     }
 
-    // Get a product details from remote server.
-    readOneZimmer(id: number): Observable<Zimmer>{
+    // Get details for one specific room
+    readOneZimmer(_id: number): Observable<Zimmer>{
         return this._http
-            .get("http://localhost/api/zimmer/read_one.php?id="+id)
+            .get("http://localhost/api/zimmer/read_one.php?id="+_id)
             .pipe(
                 map(res => res.json())
             );

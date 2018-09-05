@@ -33,21 +33,6 @@ export class ReadBookingsComponent implements OnInit {
         private zimmerService: ZimmerService,
         private router: Router
     ){}
- 
-    displaythis(_day: number, _booking: Buchung) {
-
-        // create new date because the date is only recognized as a string
-        // --> date functions would not work
-        let start: number = new Date(_booking.checkinDatum).getDate();
-        let end: number = new Date(_booking.checkoutDatum).getDate();
-
-        if (_day >= start && _day <= end) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
 
     ngOnInit(){
         
@@ -58,7 +43,24 @@ export class ReadBookingsComponent implements OnInit {
         
         this.loadCalendar();
     }
+ 
+    /*
+     * Checks if the currently displayed day is in between the period of a booking.
+     * Used to display which days are occupied and which days are not.
+     */
+    isRoomOccupiedAtThisDay(_day: number, _booking: Buchung) {
+        // create new date because the date is only recognized as a string
+        // --> date functions would not work
+        let checkIn: number = new Date(_booking.checkinDatum).getDate();
+        let checkOut: number = new Date(_booking.checkoutDatum).getDate();
 
+        if (_day >= checkIn && _day <= checkOut) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
     
     getBookingsForRoom(_zimmerID: number) {
 
@@ -69,7 +71,7 @@ export class ReadBookingsComponent implements OnInit {
         }
 
         for (let booking of this.bookingsOfMonth) {
-            if (booking.zimmerID == _zimmerID) {
+            if (booking.zimmerID === _zimmerID) {
                 bookingArr.push(booking);
             }
         }

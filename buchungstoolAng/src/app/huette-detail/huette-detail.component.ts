@@ -2,7 +2,9 @@ import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angu
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { Huette }         from '../huette';
+import { Huette } from '../huette';
+import { Zimmer } from '../zimmer';
+import { Zimmerkategorie } from '../zimmerkategorie';
 import { HuetteService }  from '../huette.service';
 
 @Component({
@@ -14,6 +16,8 @@ import { HuetteService }  from '../huette.service';
 export class HuetteDetailComponent implements OnInit{
  
     huette: Huette;
+    rooms: Zimmer[];
+    categories: Zimmerkategorie[];
     
     // initialize product service
     constructor(
@@ -26,6 +30,8 @@ export class HuetteDetailComponent implements OnInit{
     // call the record when 'huetteID' was changed
     ngOnInit(){
         this.getHuette();
+        //this.getZimmer();
+        this.getCategories();
     }
 
     goBack(): void {
@@ -42,5 +48,19 @@ export class HuetteDetailComponent implements OnInit{
         const huetteUrlID = +this._route.snapshot.paramMap.get('id');
         this._huetteService.readOneHuette(huetteUrlID)
             .subscribe(huette => this.huette=huette);
+    }
+
+    getZimmer(): void {
+        // get huetteID where the booking corresponds to ... '+' operator converts string to a number
+        const huetteUrlID = +this._route.snapshot.paramMap.get('id');
+        this._huetteService.readZimmer(huetteUrlID)
+            .subscribe(zimmer => this.rooms=zimmer['records']);
+    }
+
+    getCategories(): void {
+        // get huetteID where the booking corresponds to ... '+' operator converts string to a number
+        const huetteUrlID = +this._route.snapshot.paramMap.get('id');
+        this._huetteService.readCategories(huetteUrlID)
+            .subscribe(categories => this.categories=categories['records']);
     }
 }
