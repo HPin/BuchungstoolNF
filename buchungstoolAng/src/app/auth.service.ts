@@ -4,24 +4,28 @@ import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
+import { AppConstants } from './app-constants';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+    baseURL: string;
+	username: string;
+	firstname: string;
+	lastname: string;
+	isLoggedIn = false;
+	uuid: string;
 
-	  username: String;
-	  firstname: String;
-	  lastname: String;
-	  isLoggedIn = false;
-	  uuid: String;
-
-	  // store the URL so we can redirect after logging in
-	  redirectUrl: string;
+	// store the URL so we can redirect after logging in
+	redirectUrl: string;
 
 
-	constructor(private _http: Http) { }
+	constructor(private _http: Http) { 
+		this.baseURL = AppConstants.baseURL;
+	}
 
 	isUserLoggedIn() {
 		// attempt to "relogin" user if a session is found
@@ -44,7 +48,7 @@ export class AuthService {
         //let data = 'username='+_user.username+'&password='+_user.password;
 
 		return this._http.post(
-			"http://localhost/api/login/login.php", 
+			this.baseURL + "/login/login.php", 
 			_user,
 			options
 		).pipe(

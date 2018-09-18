@@ -85,6 +85,11 @@ export class CreateBookingComponent implements OnInit {
         });
         */
     }
+
+    getCartItems() {
+        let arr = ["abc"];
+        return  arr;
+    }
  
     ngOnInit(){
        this.getHuette();
@@ -292,7 +297,7 @@ export class CreateBookingComponent implements OnInit {
             }
         }
         // month value is one too high
-        this.checkOutDate = new Date(this.year, this.month-1, _day;
+        this.checkOutDate = new Date(this.year, this.month-1, _day);
         this.selectFirstDay = true;
     }
 
@@ -410,9 +415,14 @@ export class CreateBookingComponent implements OnInit {
       var tabArray = document.getElementsByClassName("tab");
       var elem = <HTMLElement> tabArray[this.currentTab];
 
+      var nextButton = document.getElementById("nextBtn")
+
       // Exit the function if any field in the current tab is invalid:
       if (_n == 1 && !this.validateForm()) {
+          nextButton.className = "nextBtnInactive"
           return false;
+      } else {
+          nextButton.className = "nextBtnActive"
       }
 
       // Hide the current tab:
@@ -458,19 +468,31 @@ export class CreateBookingComponent implements OnInit {
                     }
                 }
 
-                var birthDate = new Date(this.create_booking_form.get('buchenderGeburtsdatum').value);
-                console.log(birthDate)
-                var today = new Date();
-                var age = today.getFullYear() - birthDate.getFullYear();
-                var m = today.getMonth() - birthDate.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                    age--;
-                }
-
+                let age = this.calculateAge(this.create_booking_form.get('buchenderGeburtsdatum').value);
                 if (age < 18 || age > 120) {
                     inputFields[2].className += " invalid";
                     isFormValid = false;
                 }
+
+                break;
+          case 3:
+                var inputFields = elem.getElementsByTagName("input");
+                for (var i = 0; i < inputFields.length; i++) {    // check every inputfield in the current tab
+                    if (inputFields[i].value === "") {             // if field empty
+                      inputFields[i].className += " invalid";     // add an "invalid" class to the field
+                      isFormValid = false;                        // and set the current valid status to false
+                    }
+
+                    if (i % 2 === 1) {    // every third entry is the birthdate
+                        let age = this.calculateAge(inputFields[i].value);
+                        if (age < 18 || age > 120) {
+                            inputFields[2].className += " invalid";
+                            isFormValid = false;
+                        }
+                    }
+
+                }
+
 
                 break;
           default:
@@ -488,6 +510,19 @@ export class CreateBookingComponent implements OnInit {
         step.className += " finish";
       }
 
+      isFormValid = true;
       return isFormValid; // return the valid status
+    }
+
+
+    private calculateAge(_birthdayString: string) {
+        var birthDate = new Date(_birthdayString);
+        var today = new Date();
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
     }
 }

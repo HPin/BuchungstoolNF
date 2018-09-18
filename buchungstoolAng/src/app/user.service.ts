@@ -6,18 +6,23 @@ import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { User } from './user';
 import { Buchung } from './buchung';
+import { AppConstants } from './app-constants';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+    baseURL: string;
     booking: FormGroup;
     user: User;
 	// We need Http to talk to a remote server.
     constructor(
         private _http : Http,
         formBuilder: FormBuilder
-    ){   }
+    ){  
+        this.baseURL = AppConstants.baseURL;
+    }
 
 
     storeBooking(_booking: FormGroup) {
@@ -31,7 +36,7 @@ export class UserService {
         let options = new RequestOptions({ headers: headers });
 
         return this._http.post(
-            "http://localhost/api/user/create.php",
+            this.baseURL + "/user/create.php",
             _user,
             options
         ).pipe(
@@ -49,7 +54,7 @@ export class UserService {
         newBooking.buchenderID = _user;
 
         return this._http.post(
-            "http://localhost/api/buchung/create.php",
+            this.baseURL + "/buchung/create.php",
             newBooking,
             options
         ).pipe(

@@ -6,6 +6,7 @@ import { Huette } from './huette';
 import { Zimmer } from './zimmer';
 import { Zimmerkategorie } from './zimmerkategorie';
 import { Observable, of } from 'rxjs';
+import { AppConstants } from './app-constants';
 
 
 @Injectable({
@@ -13,12 +14,16 @@ import { Observable, of } from 'rxjs';
 })
 export class HuetteService {
 
+    baseURL: string;
+
 	 // We need Http to talk to a remote server.
-    constructor(private _http : Http){ }
+    constructor(private _http : Http){ 
+        this.baseURL = AppConstants.baseURL;
+    }
  
     readHuetten(): Observable<Huette[]>{
         return this._http
-            .get("http://localhost/api/huette/read.php")
+            .get(this.baseURL + "/huette/read.php")
             .pipe(
             	map(res => res.json())
             );
@@ -26,7 +31,7 @@ export class HuetteService {
  
     readOneHuette(id: number): Observable<Huette>{
         return this._http
-            .get("http://localhost/api/huette/read_one.php?id="+id)
+            .get(this.baseURL + "/huette/read_one.php?id="+id)
             .pipe(
                 map(res => res.json())
             );
@@ -34,7 +39,7 @@ export class HuetteService {
 
     readZimmer(_huetteID: number): Observable<Zimmer[]>{
         return this._http
-            .get("http://localhost/api/huette/read_zimmer.php?id="+_huetteID)
+            .get(this.baseURL + "/huette/read_zimmer.php?id="+_huetteID)
             .pipe(
                 map(res => res.json())
             );
@@ -42,7 +47,7 @@ export class HuetteService {
 
     readCategories(_huetteID: number): Observable<Zimmerkategorie[]> {
         return this._http
-            .get("http://localhost/api/huette/read_zimmerkategorien.php?id="+_huetteID)
+            .get(this.baseURL + "/huette/read_zimmerkategorien.php?id="+_huetteID)
             .pipe(
                 map(res => res.json())
             );
@@ -51,7 +56,7 @@ export class HuetteService {
     // get all rooms of the specified category
     readZimmerWithCategory(_huetteID: number, _kategorieID: number) : Observable<Zimmer[]> {
         return this._http
-            .get("http://localhost/api/huette/read_all_of_category.php?id="+_huetteID+"&cat="+_kategorieID)
+            .get(this.baseURL + "/huette/read_all_of_category.php?id="+_huetteID+"&cat="+_kategorieID)
             .pipe(
                 map(res => res.json())
             );

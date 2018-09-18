@@ -5,18 +5,24 @@ import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { Zimmer } from './zimmer';
 import { Zimmerkategorie } from './zimmerkategorie';
+import { AppConstants } from './app-constants';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ZimmerService {
 
-   constructor(private _http : Http){ }
+    baseURL: string;
+
+   constructor(private _http : Http){ 
+       this.baseURL = AppConstants.baseURL;
+   }
 
 
     readZimmer() : Observable<Zimmer[]> {
         return this._http
-            .get("http://localhost/api/zimmer/read.php")
+            .get(this.baseURL + "/zimmer/read.php")
             .pipe(
                 map(res => res.json())
             );
@@ -25,7 +31,7 @@ export class ZimmerService {
     // Get details for one specific room
     readOneZimmer(_id: number): Observable<Zimmer>{
         return this._http
-            .get("http://localhost/api/zimmer/read_one.php?id="+_id)
+            .get(this.baseURL + "/zimmer/read_one.php?id="+_id)
             .pipe(
                 map(res => res.json())
             );

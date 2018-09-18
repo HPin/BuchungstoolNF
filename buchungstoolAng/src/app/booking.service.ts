@@ -4,19 +4,25 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { Buchung } from './buchung';
+import { AppConstants } from './app-constants';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
 
+    baseURL: string;
+
 	// We need Http to talk to a remote server.
-    constructor(private _http : Http){ }
+    constructor(private _http : Http){ 
+        this.baseURL = AppConstants.baseURL;
+    }
 
 
     readBookings() : Observable<Buchung[]> {
         return this._http
-            .get("http://localhost/api/buchung/read.php")
+            .get(this.baseURL + "/buchung/read.php")
             .pipe(
                 map(res => res.json())
             );
@@ -24,7 +30,7 @@ export class BookingService {
 
     readBookingsByDate(_month: number, _year: number) {
         return this._http
-            .get("http://localhost/api/buchung/read_month.php?year="+_year+"&month="+_month)
+            .get(this.baseURL + "/buchung/read_month.php?year="+_year+"&month="+_month)
             .pipe(
                 map(res => res.json())
             );
@@ -33,7 +39,7 @@ export class BookingService {
     // Get a product details from remote server.
     readOneBooking(id: number): Observable<Buchung>{
         return this._http
-            .get("http://localhost/api/buchung/read_one.php?id="+id)
+            .get(this.baseURL + "/buchung/read_one.php?id="+id)
             .pipe(
                 map(res => res.json())
             );
@@ -47,7 +53,7 @@ export class BookingService {
         let options = new RequestOptions({ headers: headers });
 
         return this._http.post(
-            "http://localhost/api/buchung/create.php",
+            this.baseURL + "/buchung/create.php",
             _booking,
             options
         ).pipe(
