@@ -85,8 +85,12 @@ body {font-family: Verdana, sans-serif;}
 /* Days (1-31) */
 .occupation {
     padding: 10px 0;
-    background: #eee;
-    margin: 0;
+    background: #f2f2f2;
+    /*margin: 0;*/
+}
+
+.occupation:nth-child(even) {
+    background-color: #ffffff;
 }
 
 .occupation li {
@@ -96,6 +100,7 @@ body {font-family: Verdana, sans-serif;}
     text-align: center;
     font-size:12px;
     color: #777;
+    height: 100%;
 }
 
 /* Highlight the "current" day */
@@ -107,8 +112,8 @@ body {font-family: Verdana, sans-serif;}
 
 
 .occupation .zimmername {
-    margin: -10px;
-    padding: 10px;
+    /*margin: -10px;
+    padding: 10px;*/
     width: 7%;
     color: white;
     background-color: #2c3e50;

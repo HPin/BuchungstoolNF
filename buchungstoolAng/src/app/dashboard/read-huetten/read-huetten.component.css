@@ -8,11 +8,17 @@ a.buchenBtn {
 }
 
 a.buchenBtn:hover {
-  color: yellow;
+  color: white;
+  background-color: #46468c;
 }
 
 a.detailBtn {
-    background-color: green;
+    background-color: #d35400;
+}
+
+a.detailBtn:hover {
+    color: white;
+    background-color: #d76519;
 }
 
 .card-img-top {

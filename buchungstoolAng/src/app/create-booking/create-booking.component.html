@@ -7,14 +7,32 @@
     <div class="tab">
         <h1>Buchungsdetails</h1>
 
-        <h3>Personenanzahl: {{personSliderValue}}</h3>
+        <!-- --- PERSONS --- -->
+        <hr class="separatorHR">
+        <h2>Personenanzahl</h2>
+        <h3>Anzahl Erwachsene: {{adultSliderValue}}</h3>
+        <h4 class="subheading">Alter: über 15 Jahre zum Tag des Reiseantritts</h4>
         <div class="form-group"> 
-            <input formControlName="personenAnzahl" type="range" class="form-control-range" id="formControlRange" 
-                   value="1" min="1" max="30" #sliderRef (change)="personSliderOnChange(sliderRef.value)" required>
+            <input formControlName="erwachseneAnzahl" type="range" class="form-control-range" id="formControlRangeAdult" 
+                   value="1" min="1" max="30" #adultSliderRef (change)="adultSliderOnChange(adultSliderRef.value)" required>
+        </div>
+        <h3>Anzahl Jugendliche: {{teenagerSliderValue}}</h3>
+        <h4 class="subheading">Alter: unter 15 Jahre zum Tag des Reiseantritts</h4>
+        <div class="form-group"> 
+            <input formControlName="jugendlicheAnzahl" type="range" class="form-control-range" id="formControlRangeTeenager" 
+                   value="0" min="0" max="30" #teenagerSliderRef (change)="teenagerSliderOnChange(teenagerSliderRef.value)" required>
+        </div>
+        <h3>Anzahl Kinder: {{kidSliderValue}}</h3>
+        <h4 class="subheading">Alter: unter 6 Jahre zum Tag des Reiseantritts</h4>
+        <div class="form-group"> 
+            <input formControlName="kinderAnzahl" type="range" class="form-control-range" id="formControlRangeKid" 
+                   value="0" min="0" max="30" #kidSliderRef (change)="kidSliderOnChange(kidSliderRef.value)" required>
         </div>
         
-
-        <h3>Zimmerkategorie</h3>
+        <!-- --- CATEGORY --- -->
+        <hr class="separatorHR">
+        <h2>Zimmerkategorie</h2>
+        <h3>Zimmerkategorie auswählen</h3>
         <div class="form-group">
             <select formControlName="zimmerkategorie" class="form-control" id="zimmerkategorieSelect" 
                     #catRef (change)="zimmerkategorieSelectOnChange(catRef.value)" required>
@@ -26,71 +44,79 @@
                 Bitte wählen Sie eine Zimmerkategorie aus.
             </div>
         </div>
-    </div>
 
-    <!-- booking calendar -->
-    <div class="tab">
-        <h1>Reisezeitraum</h1>
+        <!-- booking calendar -->
+        <div *ngIf="(create_booking_form.get('zimmerkategorie').value !== '')">
+            <hr class="separatorHR">
+            <h2>Reisezeitraum</h2>
 
-        <div class="bookingCalendar">
-            <!-- header view of the calendar -->
-            <div class="calendarHeader">
-              <ul>
-                <button (click)="loadPreviousMonth()" type="button" class="prev">&#10094;</button>
-                <button (click)="loadNextMonth()" type="button" class="next">&#10095;</button>
-                <li class="mon">{{monthName}}</li>
-                <li class="yea">{{year}}</li>
-              </ul>
+            <div class="bookingCalendar">
+                <!-- header view of the calendar -->
+                <div class="calendarHeader">
+                  <ul>
+                    <button (click)="loadPreviousMonth()" type="button" class="prev">&#10094;</button>
+                    <button (click)="loadNextMonth()" type="button" class="next">&#10095;</button>
+                    <li class="mon">{{monthName}}</li>
+                    <li class="yea">{{year}}</li>
+                  </ul>
+                </div>
+
+                <ul class="weekdays">
+                  <li>Mo</li>
+                  <li>Di</li>
+                  <li>Mi</li>
+                  <li>Do</li>
+                  <li>Fr</li>
+                  <li>Sa</li>
+                  <li>So</li>
+                </ul>
+
+                <ul class="days"> 
+                    <!-- Insert empty fields for the first few days if month does not start with a monday -->
+                    <li *ngFor="let emptyDay of calcFirstDayAndPaddingOfMonth()">
+                         <div class="invalidDay">&nbsp;</div>
+                    </li>
+
+                    <!-- iterate over all days of the month -->
+                    <li *ngFor="let day of days">
+                        <!-- check if there is at least 1 free room on this day -->
+                        <div *ngIf="isOneRoomFreeOnThisDay(day);else showDayAsOccupied">
+                            <div *ngIf="selectFirstDay" class="freeDay" (click)="setCheckInDate(day)"
+                                 [ngClass]="{'freeDay': !isDayInRange(day), 'selected': isDayInRange(day)}">{{day}}</div>
+                            <div *ngIf="!selectFirstDay" class="freeDay" (click)="setCheckOutDate(day)"
+                                 [ngClass]="{'freeDay': !isDayInRange(day), 'selected': isDayInRange(day)}">{{day}}</div>
+                        </div>
+
+                        <!-- if there is no free room available, display the day as occupied -->
+                        <ng-template #showDayAsOccupied>
+                            <div class="occupied">{{day}}</div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div> 
+
+            <p>Anreise- und Abreisetag durch Klicken auswählen.</p>
+            <table class="legendForCalendar">
+                <tr>
+                    <th>Legende</th>
+                    <td class="legendFree">Frei</td>
+                    <td class="legendOccupied">Belegt</td>
+                    <td class="legendSelected">Ausgewählt</td>
+                </tr>
+            </table>
+
+            <div class="checkInAndOutDates">
+                <h4 *ngIf="checkInDate">Anreise: {{checkInDate.toLocaleDateString("de-AT", dateOptions)}}</h4>
+                <h4 *ngIf="checkOutDate">Abreise: {{checkOutDate.toLocaleDateString("de-AT", dateOptions)}}</h4>
             </div>
-
-            <ul class="weekdays">
-              <li>Mo</li>
-              <li>Di</li>
-              <li>Mi</li>
-              <li>Do</li>
-              <li>Fr</li>
-              <li>Sa</li>
-              <li>So</li>
-            </ul>
-
-            <ul class="days"> 
-                <!-- Insert empty fields for the first few days if month does not start with a monday -->
-                <li *ngFor="let emptyDay of calcFirstDayAndPaddingOfMonth()">
-                     <div class="invalidDay">&nbsp;</div>
-                </li>
-
-                <!-- iterate over all days of the month -->
-                <li *ngFor="let day of days">
-                    <!-- check if there is at least 1 free room on this day -->
-                    <div *ngIf="isOneRoomFreeOnThisDay(day);else showDayAsOccupied">
-                        <div *ngIf="selectFirstDay" class="freeDay" (click)="setCheckInDate(day)"
-                             [ngClass]="{'freeDay': !isDayInRange(day), 'selected': isDayInRange(day)}">{{day}}</div>
-                        <div *ngIf="!selectFirstDay" class="freeDay" (click)="setCheckOutDate(day)"
-                             [ngClass]="{'freeDay': !isDayInRange(day), 'selected': isDayInRange(day)}">{{day}}</div>
-                    </div>
-
-                    <!-- if there is no free room available, display the day as occupied -->
-                    <ng-template #showDayAsOccupied>
-                        <div class="occupied">{{day}}</div>
-                    </ng-template>
-                </li>
-            </ul>
-        </div> 
-
-        <p>Anreise- und Abreisetag durch Klicken auswählen.</p>
-        <table class="legendForCalendar">
-            <tr>
-                <th>Legende</th>
-                <td class="legendFree">Frei</td>
-                <td class="legendOccupied">Belegt</td>
-                <td class="legendSelected">Ausgewählt</td>
-            </tr>
-        </table>
-
-        <div class="checkInAndOutDates">
-            <h4 *ngIf="checkInDate">Anreise: {{checkInDate.toLocaleDateString("de-AT", dateOptions)}}</h4>
-            <h4 *ngIf="checkOutDate">Abreise: {{checkOutDate.toLocaleDateString("de-AT", dateOptions)}}</h4>
         </div>
+
+        <!-- --- PRICE --- -->
+        <div *ngIf="(create_booking_form.get('zimmerkategorie').value !== '')">
+            <hr class="separatorHR">
+            <h2>Zimmerpreis</h2>
+        </div>
+
     </div>
 
     <!-- data of booking creator-->
@@ -285,7 +311,7 @@
 
 
 
-    <!-- data of fellow travellers -->
+    <!-- checkout -->
     <div class="tab">
 
         <div class="container">
@@ -384,7 +410,7 @@
 
           <div class="card p-2">
             <div class="input-group">
-                <button (click)="clearItems()" class="btn btn-secondary" style="width:100%">Buchung absenden</button>
+                <button (click)="clearItems()" class="btn btn-secondary" style="width:100%">Zur Bezahlung</button>
             </div>
           </div>
                             
@@ -392,6 +418,29 @@
         </div>
 
     </div>
+
+
+
+    <!-- payment -->
+    <div class="tab">
+
+        <h1>Zahlungsart</h1>
+
+        <h3>Wählen Sie die gewünschte Zahlungsart</h3>
+        <div class="form-group">
+            <select formControlName="zahlungsart" class="form-control" id="zahlungsartSelect" 
+                    #artRef (change)="zahlungsartSelectOnChange(artRef.value)" required>
+              <option></option>
+              <option *ngFor="let method of paymentMethods">{{method}}</option>
+            </select>
+
+            <div *ngIf="(create_booking_form.get('zahlungsart').value === '')" class="alert alert-danger">
+                Bitte wählen Sie eine Zahlungsart aus.
+            </div>
+        </div>
+
+    </div>
+
 
 
     <!-- previous and next buttons -->

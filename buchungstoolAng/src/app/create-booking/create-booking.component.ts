@@ -34,6 +34,9 @@ export class CreateBookingComponent implements OnInit {
     zimmerForCategoryArr: Zimmer[];
     fellowTravelerDict = {};
 
+    paymentMethods = ["PayPal", "Sofortüberweisung", "Kreditkarte", "Zahlung auf Rechnung"];
+    selectedPaymentMethod: string;
+
     huette: Huette;
     currentTab = 0; // Current tab is set to be the first tab (0)
     create_booking_form: FormGroup;
@@ -41,7 +44,9 @@ export class CreateBookingComponent implements OnInit {
     // get huetteID where the booking corresponds to ... '+' operator converts string to a number
     huetteUrlID = +this.route.snapshot.paramMap.get('id');
 
-    personSliderValue = 1;
+    adultSliderValue = 1;
+    teenagerSliderValue = 0;
+    kidSliderValue = 0;
 
     dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     selectFirstDay = true;
@@ -60,7 +65,9 @@ export class CreateBookingComponent implements OnInit {
         // based on our html form, build our angular form
         this.create_booking_form = formBuilder.group({
             huetteID: this.huetteUrlID,
-            personenAnzahl: this.personSliderValue,
+            erwachseneAnzahl: this.adultSliderValue,
+            jugendlicheAnzahl: this.teenagerSliderValue,
+            kinderAnzahl: this.kidSliderValue,
             zimmerkategorie: ["", Validators.required],
             buchenderVorname: ["", Validators.required],
             buchenderNachname: ["", Validators.required],
@@ -69,7 +76,8 @@ export class CreateBookingComponent implements OnInit {
             buchenderPLZ: ["", Validators.required],
             buchenderOrt: ["", Validators.required],
             buchenderTelefonnummer: ["", Validators.required],
-            buchenderMail: ["", Validators.required]
+            buchenderMail: ["", Validators.required],
+            zahlungsart: ["", Validators.required]
         });
 
         /*
@@ -100,17 +108,27 @@ export class CreateBookingComponent implements OnInit {
     }
 
     // ---------------------- SLIDER -----------------------------------------------------
-    personSliderOnChange(_value: number) {
-        this.personSliderValue = _value; 
+    adultSliderOnChange(_value: number) {
+        this.adultSliderValue = _value; 
+    }
+
+    teenagerSliderOnChange(_value: number) {
+        this.teenagerSliderValue = _value; 
+    }
+
+    kidSliderOnChange(_value: number) {
+        this.kidSliderValue = _value; 
     }
 
     getArrayOfPersonNumber() {
-        if (this.personSliderValue <= 1) {
+        if (this.adultSliderValue <= 1) {
             return
         } else {
+            var totalPersons = this.adultSliderValue + this.teenagerSliderValue + this.kidSliderValue;
+
             // fill array ascending starting at 1 ... 1,2,3,4,5,...n (person 0 is the booking person)
             var arr = [];
-            for (var i = 1; i <= this.personSliderValue; i++) {
+            for (var i = 1; i <= totalPersons; i++) {
                  arr.push(i);
             }
             return arr;
@@ -387,7 +405,7 @@ export class CreateBookingComponent implements OnInit {
 
       // change button text for last index
       if (_n == (tabArray.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Speichern";
+        document.getElementById("nextBtn").innerHTML = "Jetzt Bezahlen";
       } else {
         document.getElementById("nextBtn").innerHTML = "Weiter";
       }
@@ -413,32 +431,60 @@ export class CreateBookingComponent implements OnInit {
     nextPrev(_n) {
       // This function will figure out which tab to display
       var tabArray = document.getElementsByClassName("tab");
-      var elem = <HTMLElement> tabArray[this.currentTab];
 
-      var nextButton = document.getElementById("nextBtn")
+      // add other behavior to button when it is the last page (payment), _n !== -1: exclude back button
+      if (_n !== -1 && this.currentTab == (tabArray.length - 1)) {
+          // TODO: open payment provider page
+          
 
-      // Exit the function if any field in the current tab is invalid:
-      if (_n == 1 && !this.validateForm()) {
-          nextButton.className = "nextBtnInactive"
-          return false;
+          switch (this.selectedPaymentMethod) {
+              case "PayPal":
+                  // code...
+                  break;
+              case "Sofortüberweisung":
+                  // code...
+                  break;
+              case "Kreditkarte":
+                  // code...
+                  break;
+              case "Zahlung auf Rechnung":
+                  this.router.navigate(["/dashboard/"]);
+                  break;
+
+              default:
+                  this.router.navigate(["/dashboard/"]);
+                  break;
+          }
+
       } else {
-          nextButton.className = "nextBtnActive"
+
+          var elem = <HTMLElement> tabArray[this.currentTab];
+
+          var nextButton = document.getElementById("nextBtn")
+
+          // Exit the function if any field in the current tab is invalid:
+          if (_n == 1 && !this.validateForm()) {
+              nextButton.className = "nextBtnInactive"
+              return false;
+          } else {
+              nextButton.className = "nextBtnActive"
+          }
+
+          // Hide the current tab:
+          elem.style.display = "none";
+
+          // Increase or decrease the current tab by 1:
+          this.currentTab = this.currentTab + _n;
+
+          // if you have reached the end of the form... :
+          if (this.currentTab >= tabArray.length) {
+            //...the form gets submitted:
+            //document.getElementById("regForm").submit();
+            return false;
+          }
+          // Otherwise, display the correct tab:
+          this.showTab(this.currentTab);
       }
-
-      // Hide the current tab:
-      elem.style.display = "none";
-
-      // Increase or decrease the current tab by 1:
-      this.currentTab = this.currentTab + _n;
-
-      // if you have reached the end of the form... :
-      if (this.currentTab >= tabArray.length) {
-        //...the form gets submitted:
-        //document.getElementById("regForm").submit();
-        return false;
-      }
-      // Otherwise, display the correct tab:
-      this.showTab(this.currentTab);
     }
 
     // checks if form is valid
@@ -453,13 +499,11 @@ export class CreateBookingComponent implements OnInit {
                 if (this.create_booking_form.get('zimmerkategorie').value === '') {
                     isFormValid = false;
                 }
-                break;
-          case 1: 
                 if (this.checkInDate === null || this.checkOutDate === null) {
                     isFormValid = false
                 }
                 break;
-          case 2:
+          case 1:
                 var inputFields = elem.getElementsByTagName("input");
                 for (var i = 0; i < inputFields.length; i++) {    // check every inputfield in the current tab
                     if (inputFields[i].value === "") {             // if field empty
@@ -475,7 +519,7 @@ export class CreateBookingComponent implements OnInit {
                 }
 
                 break;
-          case 3:
+          case 2:
                 var inputFields = elem.getElementsByTagName("input");
                 for (var i = 0; i < inputFields.length; i++) {    // check every inputfield in the current tab
                     if (inputFields[i].value === "") {             // if field empty
@@ -524,5 +568,18 @@ export class CreateBookingComponent implements OnInit {
             age--;
         }
         return age;
+    }
+
+    // ---------------------- ZAHLUNGSART -----------------------------------------------------
+    zahlungsartSelectOnChange(_value: string) {
+        console.log("select: "+_value)
+
+        // safety check
+        if (this.paymentMethods === null || typeof(this.paymentMethods) === 'undefined') {
+            return false;
+        }
+
+        // get category name and find corresponding ID
+        this.selectedPaymentMethod = this.create_booking_form.get('zahlungsart').value;
     }
 }
