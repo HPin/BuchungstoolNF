@@ -10,4 +10,5 @@ export class Huette {
 	mail: string;
 	preis: string;
 	imageurl: string;
+	fruehstueckspreis: number;
 }

@@ -14,11 +14,11 @@ const monthNames = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli
                         'August', 'September', 'Oktober', 'November', 'Dezember'];
 
 @Component({
-  selector: 'app-create-booking',
-  templateUrl: './create-booking.component.html',
-  styleUrls: ['./create-booking.component.css']
+  selector: 'app-test',
+  templateUrl: './test.component.html',
+  styleUrls: ['./test.component.css']
 })
-export class CreateBookingComponent implements OnInit {
+export class TestComponent implements OnInit {
     adultRooms: Zimmer[];
 
     today: Date;
@@ -27,7 +27,6 @@ export class CreateBookingComponent implements OnInit {
     monthName: string;
     numberOfDays: number;
     days: number[];
-    isFirstCalendarStart = true;
 
     bookingsOfMonth: Buchung[];
     bookingsForRoom: Buchung[];
@@ -59,8 +58,6 @@ export class CreateBookingComponent implements OnInit {
     checkInDate = null;
     checkOutDate = null;
     monthOfCheckInDate: number;
-    yearOfCheckInDate: number;
-    areBookingsReadyForMonth = false;
  
     // initialize 'product service', 'category service' and 'form builder'
     constructor(
@@ -102,6 +99,11 @@ export class CreateBookingComponent implements OnInit {
             zahlungsartID: 1
         });
         */
+    }
+
+    getCartItems() {
+        let arr = ["abc"];
+        return  arr;
     }
  
     ngOnInit(){
@@ -203,7 +205,6 @@ export class CreateBookingComponent implements OnInit {
 
     // ----------------------- CALENDAR --------------------------------------------------
     loadCalendar() {
-        console.log("loadCalendar")
         let today = new Date();
         this.today = today;
         this.year = today.getFullYear();
@@ -214,17 +215,19 @@ export class CreateBookingComponent implements OnInit {
     }
 
     loadBookingsOfMonth() {
-        console.log("loadBookingsOfMonth")
-
-        this.bookingService.readBookingsByDate(this.month, this.year).subscribe(
-                bookings => {
-                    this.bookingsOfMonth=bookings['records'];
-                    this.areBookingsReadyForMonth = true;
-                } 
+        console.log("loading bookings...")
+        this.bookingService.readBookingsByDate(this.month, this.year)
+            .subscribe(bookings =>
+                this.bookingsOfMonth=bookings['records']
             );
 
         if (this.bookingsOfMonth === null || typeof(this.bookingsOfMonth) === 'undefined') {
-            this.areBookingsReadyForMonth = false;
+            console.log("bookingsofmonth undefined")
+            return;
+        }
+
+        for (let entry of this.bookingsOfMonth) {
+            console.log("bookingArr: " + entry.checkinDatum);
         }
 
     }
@@ -234,17 +237,8 @@ export class CreateBookingComponent implements OnInit {
      * Used to display which days are occupied and which days are not.
      */
     isOneRoomFreeOnThisDay(_day: number) {
-        // while (!this.areBookingsReadyForMonth) {
 
-        // }
-
-        if (this.isFirstCalendarStart) {
-            this.loadBookingsOfMonth();
-            this.isFirstCalendarStart = false;
-        }
-
-        var freeRoomsArr: Zimmer[] = new Array();
-        var selectedArr: Zimmer[] = new Array();
+        let freeRoomsArr: Zimmer[] = new Array();
 
         if (this.bookingsOfMonth === null || typeof(this.bookingsOfMonth) === 'undefined') {
             return true;
@@ -255,7 +249,7 @@ export class CreateBookingComponent implements OnInit {
 
         // filter all bookings of the month which are in the relevant time period
         let bookingsOnThisDayArr: Buchung[] = new Array();
-        for (let booking of this.bookingsOfMonth) {
+        for(let booking of this.bookingsOfMonth) {
             let checkIn: number = new Date(booking.checkinDatum).getDate();
             let checkOut: number = new Date(booking.checkoutDatum).getDate();
 
@@ -288,41 +282,18 @@ export class CreateBookingComponent implements OnInit {
             }
         }
         
+        
+
         // return if this day is still available or not
         if (freeRoomsArr.length > 0) {
-
-            // loop only used for debug
-            // console.log("***")
-            // freeRoomsArr.forEach(element => {
-            //     console.log(element.bezeichnung + " hat " + element.plaetze + " frei am " + _day + "." + this.month + ".")
-            // });
-
-            // simple room distribution approach: fill up rooms sequentially with the needed beds
-            var personAmount = this.calcTotalPersons();         // store amount of total persons
-            var index = 0;                                      // array index
-            while (personAmount > 0) {                          // test if end of persons has been reached (-> no other room necessary)
-                if (freeRoomsArr[index] === null || typeof(freeRoomsArr[index]) === 'undefined') {             // safety check
-                    return false;
-                }
-
-                selectedArr.push(freeRoomsArr[index]);          // select this room
-                personAmount -= freeRoomsArr[index].plaetze;    // subtract beds of room from the person amount
-                index++;                                                
-            }
-            
-            this.selectedRoomsArr = selectedArr;                // store selected rooms for later use
-
-
+            this.selectedRoomsArr = freeRoomsArr;
             return true;
         } else {
-            // console.log("***")
-            // console.log("kein Zimmer mehr frei am "  + _day + "." + this.month + ".")
             return false;
         }
     }
 
     calcDaysOfMonth() {
-        console.log("calcDaysOfMonth")
         this.numberOfDays = new Date(this.year, this.month, 0).getDate();
 
         let dayArr = Array(this.numberOfDays+1).fill(0).map((x,i)=>i);
@@ -330,13 +301,13 @@ export class CreateBookingComponent implements OnInit {
     }
 
     loadNextMonth() {
-        console.log("loadNextMonth")
         if (this.month == 12) {
             this.year += 1;
             this.month = 1;
         } else {
             this.month += 1;
         }
+
         this.monthName = monthNames[this.month - 1];
 
         this.calcDaysOfMonth();
@@ -344,8 +315,6 @@ export class CreateBookingComponent implements OnInit {
     }
 
     loadPreviousMonth() {
-        console.log("------------------")
-        console.log("loadPreviousMonth")
         if (this.month == 1) {
             this.year -= 1;
             this.month = 12;
@@ -356,7 +325,6 @@ export class CreateBookingComponent implements OnInit {
         this.monthName = monthNames[this.month - 1];
 
         this.calcDaysOfMonth();
-        this.areBookingsReadyForMonth = false;
         this.loadBookingsOfMonth();
     }
 
@@ -382,28 +350,17 @@ export class CreateBookingComponent implements OnInit {
         this.selectFirstDay = false;     // check that the next click selects the checkout date
         this.checkOutDate = null;        // reset checkout in case the user selects a new date after first selection
         this.monthOfCheckInDate = this.month;   // save month for bookings which belong to multiple months
-        this.yearOfCheckInDate = this.year;     // save year for bookings which belong to multiple months/years
+    }
+
+    checkIfNextMonthWasSelected() {
+
     }
 
     setCheckOutDate(_day: number) {
-        // see if checkout is in the same year or if another year was selected
-        if (this.year === this.yearOfCheckInDate) {
-
-            // see if checkout is in the same month or if another month was selected
-            if (this.month === this.monthOfCheckInDate) {
-                console.log("use same month")
-                // in same month: must not be the same day as checkin and later than checkin)
-                if (this.checkInDate.getDate() === _day || _day < this.checkInDate.getDate()) {
-                    return
-                }
-            } else if (this.month < this.monthOfCheckInDate) {    // month in same year must not be < month of check in
-                return;
-            }
-            
-        } else if (this.year < this.yearOfCheckInDate) {      // year must not be < year of check in
-            return;
+        // check if checkout date is valid (not same day as checkin, later than checkin)
+        if (this.checkInDate.getDate() === _day || _day < this.checkInDate.getDate()) {
+            return
         }
-        
 
         // make sure there are no bookings (i.e. unavailable days) within the selected period
         for (var i = this.checkInDate.getDate(); i <= _day; i++) {
@@ -411,9 +368,11 @@ export class CreateBookingComponent implements OnInit {
                 return
             }
         }
-        // month value is one too high for this constructor
+        // month value is one too high
         this.checkOutDate = new Date(this.year, this.month-1, _day);
         this.selectFirstDay = true;
+
+        console.log("checkout: " + this.checkOutDate)
     }
 
     /*

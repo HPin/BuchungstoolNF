@@ -22,6 +22,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { LoginRoutingModule } from './/login-routing.module';
 import { BookingFinalComponent } from './booking-final/booking-final.component';
 import { MakeBookingComponent } from './make-booking/make-booking.component';
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { MakeBookingComponent } from './make-booking/make-booking.component';
     CreateUserComponent,
     BookingFinalComponent,
     MakeBookingComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,

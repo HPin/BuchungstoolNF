@@ -95,7 +95,7 @@
                   <li>So</li>
                 </ul>
 
-                <ul *ngIf="areBookingsReadyForMonth === true" class="days"> 
+                <ul class="days"> 
                     <!-- Insert empty fields for the first few days if month does not start with a monday -->
                     <li *ngFor="let emptyDay of calcFirstDayAndPaddingOfMonth()">
                          <div class="invalidDay">&nbsp;</div>
@@ -107,10 +107,10 @@
                         <div *ngIf="isOneRoomFreeOnThisDay(day);else showDayAsOccupied">
                             <!-- select first day, check if possible, mark as free or as selected -->
                             <div *ngIf="selectFirstDay" class="freeDay" (click)="setCheckInDate(day)"
-                                [ngClass]="{'freeDay': !isDayInRange(day), 'selected': isDayInRange(day)}">{{day}}</div>
+                                 [ngClass]="{'freeDay': !isDayInRange(day), 'selected': isDayInRange(day)}">{{day}}</div>
                             <!-- select departure day, check if possible, mark as free or as selected -->
                             <div *ngIf="!selectFirstDay" class="freeDay" (click)="setCheckOutDate(day)"
-                                [ngClass]="{'freeDay': !isDayInRange(day), 'selected': isDayInRange(day)}">{{day}}</div>
+                                 [ngClass]="{'freeDay': !isDayInRange(day), 'selected': isDayInRange(day)}">{{day}}</div>
                         </div>
 
                         <!-- if there is no free room available, display the day as occupied -->
@@ -135,6 +135,7 @@
                 <h4 *ngIf="checkInDate">Anreise: {{checkInDate.toLocaleDateString("de-AT", dateOptions)}}</h4>
                 <h4 *ngIf="checkOutDate">Abreise: {{checkOutDate.toLocaleDateString("de-AT", dateOptions)}}</h4>
             </div>
+        
         </div>
 
         <!-- --- PRICE --- -->
@@ -407,7 +408,7 @@
         <div class="col-md-12 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Leistungen</span>
-            <span class="badge badge-secondary badge-pill">4</span>
+            <span class="badge badge-secondary badge-pill">{{getCartItems().length}}</span>
           </h4>
           <ul class="list-group mb-3">
 
